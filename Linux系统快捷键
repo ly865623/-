@@ -1,0 +1,37 @@
+linux 终端快捷键：
+在当前终端下，
+      
+
+======常用=====
+复制    ctrl +shift +C
+粘贴    ctrl+shift +V
+
+以新标签页打开新终端   ctrl +shift+T
+以新窗口打开新终端     ctrl+shift+N
+关闭当前终端          ctrl +shift +w
+关闭所有          ctrl+shift +Q
+切换到上个终端    ctrl+pageup
+切换到下个终端    ctrl+pagedown
+终端左移（在同一标签页情况下）          ctrl +shift+pageup
+终端右移（在同一标签页情况下）          ctrl +shift+pagedown
+
+
+
+====偶尔使用======
+全屏   F11
+放大  ctrl ++
+缩小  ctrl +-
+普通大小    ctrl+0
+
+查找    ctrl+ shift+F
+查找下一个  ctrl +shift +G
+查找上一个  ctrl +shift+H
+
+终端帮助目录   F1
+
+
+
+
+
+
+
