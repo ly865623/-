@@ -1,0 +1,135 @@
+latex使用笔记：
+图片的插入方法：
+（1）转载自：http://blog.sina.com.cn/s/blog_976290d401014bv1.html
+LaTex学习笔记（1）——LaTeX文档插入图片的几种常用方法 (2012-07-15 11:25:43)转载▼
+标签： 杂谈 	分类： latex学习
+LaTeX中一般只直接支持插入eps(Encapsulated PostScript)格式的图形文件, 因此在图片插入latex文档之前应先设法得到图片的eps格式的文件. 
+
+UNIX下的各种应用软件都可以把其结果输出为ps格式, 大部分软件也可以输出eps格式. 若软件只能输出ps格式而不能输出eps格式的结果, 则可用ps2epsi命令将其转化为eps格式, 可参考man ps2epsi的说明. 若图片文件的格式是位图图形文件则可用Image Magick软件包的display 和convert工具转化为ps或eps格式的文件. 详见其man页和使用说明
+Windows软件的输出结果变成ps/eps文件: 可参见本网站 "高能物理研究室Windows系统使用技巧"中的"如何把Windows系统中软件的输出结果转化为ps和eps格式的文件"一栏中的说明. 
+
+在LaTeX文档中插入图片都是通过使用一些latex图形处理宏命令来实现的, 有很多宏命令都支持在在LaTeX文档中插入eps格式的图形文件, 主要有:
+（1）用includegraphics宏命令(graphicx包)
+首先需在latex文档的文件说明部分加上:
+\usepackage{graphicx}
+然后在需要插入图片的地方引用:
+\includegraphics[height=高度]{图片文件名} 或者: \includegraphics[width=宽度]{图片文件名}
+其中的"高度"和"宽度"是指希望图片打印的高度和宽度, 必须给出单位, 可用厘米(cm)或英寸(in). 高度和宽度也可用上述格式同时给出, 这样可以改变原图的长宽比例. 上述命令中的图片文件名是指欲插入的图片文件 的文件名, 图片必需是eps格式的.
+用graphicx包的includegraphics宏命令插入图片时还可以使图片旋转, 方法是:
+\includegraphics[height=高度][angle=旋转角度]{图片文件名}
+插入的图形通常为eps、pdf或者jpg、png等格式，假设名字叫fig，把它放在你的tex文档同一目录下。
+1、先导言区加一句\usepackage{graphicx}
+2、如果想插入inline的图形, 直接使用
+\includegraphics[width=5in]{fig}，
+不用加后缀名。
+这个width是我最常用的选项, 也可以改成其他的。
+3、如果你想插入浮动图形, 使用
+\begin{figure}[htbp]
+\centering\includegraphics[width=3.5in]{fig}
+\caption{something}\label{fig:1}
+\end{figure}
+4、如果是eps的图形, 编译过程是latex, dvips, ps2pdf.
+如果是pdf jpg png图形, 编译过程是pdflatex.用includegraphics宏命令(graphics包):
+使用graphics包插入图片过程较麻烦.
+
+（2）用psfig宏命令
+首先需在latex文档的文件说明部分加上:
+\usepackage{psfig}
+然后在需要插入图片的地方引用:
+\psfig{figure=图片文件名,height=高度} 或者: \psfig{figure=图片文件名,width=宽度}
+其中的"高度"和"宽度"是指希望图片打印的高度和宽度, 必须给出单位, 可用厘米(cm)或英寸(in). 高度和宽度也可用上述格式同时给出, 这样可以改变原图的长宽比例. 上述命令中的图片文件名是指欲插入的图片文件的文件名, 图片必需是eps格式的
+
+（3）用epsfig宏命令
+epsfig宏命令的使用方法和psfig完全相同, 具体方法是:
+首先需在latex文档的文件说明部分加上:
+\usepackage{epsfig}
+然后在需要插入图片的地方引用:
+\epsfig{figure=图片文件名,height=高度} 或者: \epsfig{figure=图片文件名,width=宽度}
+其中的"高度"和"宽度"是指希望图片打印的高度和宽度, 必须给出单位, 可用厘米(cm)或英寸(in). 高度和宽度也可用上述格式给出, 这样可以改变原图的长宽比例. 上述命令中的图片文件名是指欲插入的图片文件的文件名, 图片必需是eps格式的
+        
+（4）用epsf宏命令
+用epsf宏命令的使用方法是: 首先需在latex文档的文件说明部分加上:
+\usepackage{epsf}
+然后在需要插入图片的地方引用:
+\epsfxsize=宽度\epsffile{图片文件名} 或者: \epsfysize=高度\epsffile{图片文件名}
+其中的"高度"和"宽度"是指希望图片打印的高度和宽度, 必须给出单位, 可用厘米(cm)或英寸(in). 高度和宽度也可用上述格式给出, 这样可以改变原图的长宽比例. 上述命令中的图片文件名是指欲插入的图片文件的文件名, 图片必需是eps格式的.
+ 
+（5）LaTeX 图片控制命令，位置控制
+LaTeX 控制图片的位置，就是加感叹号来忽略“美学”标准。
+\begin{figure}[!htb]
+\usepackage{float}
+\begin{figure}[H]
+插到你代码相应的位置。
+
+1，插入并列的子图
+\usepackage{subfigure}
+
+\begin{figure}[H]
+\centering
+\subfigure[SubfigureCaption]{
+\label{Fig.sub.1}
+\includegraphics[width=0.4\textwidth]{figurename.eps}}
+\subfigure[SubfigureCaption]{
+\label{Fig.sub.2}
+\includegraphics[width=0.4\textwidth]{figurename.eps}}
+\caption{MainfigureCaption}
+\label{Fig.lable}
+\end{figure}
+
+2，控制图片位置
+如果不喜欢让Latex自动安排图片位置，可以使用float包，然后
+用\begin{figure}[H]。
+\usepackage{float}
+1，插入jpg图片
+在命令行环境下，使用命令：
+ebb figure.jpg
+生成bounding box文件figure.bb。
+使用如下命令：
+\includegraphics[width=0.8\textwidth]{figure.jpg}
+可以使用Pdf Texify直接编译成pdf文件。
+2，插入bmp图片
+还没有找到直接插入bmp图片的方法。现在的方法是，使用
+gimp将bmp转换成jpg，然后按上述方法插入。转换时不要
+使用windows自带的painter，图片质量损失太多。用gimp或
+fastone image viewer，将jpg质量选为最高，转换之后得到的
+图片质量较好。
+3，同时插入jpg和eps图片
+插入的命令不变。编译时使用Latex， dvi2pdf，两种格式的
+图片都可以显示。
+插入eps图片
+使用\includegraphics[选项]{文件} 命令可以插入eps图片。下面是一个最简单的例子：
+\documentclass{article}
+\usepackage{graphicx} %使用graphicx包
+\begin{document}
+\includegraphics{file.eps} %插入图片，按图片原尺寸插入
+\end{document}
+注意：
+（1）eps文件和tex文件放在同一个文件夹，只用文件名就可以调用，不用写路径。
+（2）编译时不能使用pdflatex，会出错。即使不出错，也看不到图。应使用latex编译生成dvi，然后dvi2ps，ps2pdf就可以看到图了。
+使用[选项]可以指定图片大小：
+\includegraphics[width=3in]{file.eps}
+设定图片宽度为3 inches，图片高度会自动缩放。
+\includegraphics[width=\testwidth]{file.eps}
+设定图片宽度为文本宽度。
+\includegraphics[width=0.8\textwidth]{file.eps}
+设定图片宽度为文本宽度的0.8倍
+\includegraphics[width=\testwidth-2.0in]{file.eps}
+设定图片宽度比文本宽度少2 inches。
+使用[选项]指定图片旋转角度：
+\includegraphics[angle=270]{file.eps}
+将图片旋转270度。
+两个选项同时使用，中间用逗号隔开：
+\includegraphics[width=\testwidth,angle=270]{file.eps}
+ 
+关于LaTex中的图表问题的几篇有用的文章
+Graphics and Colour with LaTeX  有关在LaTex中插图和使用颜色的在线指导.
+Figure'ing and Picture'ing LaTeX(ps格式)  在LaTex中插入ps图和xfig图的方法.
+Using Imported Graphics in LaTeX2e(ps格式)  关于LaTex中插图的详细论述, 包括基本概念, 文件格式及其相互转换, 有关软件等. 其中还有如何把ps格式图片中的字符替换成latex格式字符, 以解决有些应用软件无法使用希腊字母等特殊字符及复杂数学公式表达式的问题.
+LaTeX maths and graphics(ps格式) 主要是关于在LaTex中插入图片和公式的方法.
+
+关于Visio转eps
+很多人习惯用Visio画图（包括me），但是Visio却不能导出EPS格式，所以只好借助于第三方软件。通过Visio另存为*.emf格式然后用openoffice的Draw打开，可以导出为EPS格式。导出时需要选中打开的图片，这样导出EPS之后就只包含*.emf图片的内容，不会有大片的空白。但是用这个方法导出的EPS图片会走样，比如直线经常会断断续续的，我在Visio中加入的“计算机”形状还会出现莫名其妙的阴影。也可能是我没有设置好吧。
+还有另外一种更好的解决方案，导出的EPS文件十分完美。也就是通过acrobat打印机将Visio图形打印成pdf，再经过gsview（GSview4.8）裁减。具体过程如下：
+1 编辑图片文件，保存为pdf文件安装acrobat,，在Visio和Wod下把编辑好的图片打印为pdf文件即可 2 转换为eps文件在acobat下打开pdf文件，选择另存为eps文件即可 3 对eps文件裁减用GSView打开eps文件，选择File-->PS toEPS，选择自动裁减，存为另一个*.eps文件即可
+
+
